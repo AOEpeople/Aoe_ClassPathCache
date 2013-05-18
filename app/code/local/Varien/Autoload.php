@@ -17,18 +17,28 @@ class Varien_Autoload
     static protected $useAPC = FALSE;
     static protected $cacheKey = self::CACHE_KEY_PREFIX;
 
+    /* Base Path */
+    static protected $_BP = ''; 
+
     /**
      * Class constructor
      */
     public function __construct()
     {
-        if (!defined('BP')) {
-            define('BP', dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+        if (defined('BP')) {
+            self::$_BP = BP;
         }
+        elseif (strpos($_SERVER["SCRIPT_FILENAME"], 'get.php') !== false) {
+            global $bp; //get from get.php
+            if (isset($bp) && !empty($bp)){
+                self::$_BP = $bp;
+            }
+        }
+        
         if (extension_loaded('apc')) {
             self::$useAPC = TRUE;
         }
-        self::$cacheKey = self::CACHE_KEY_PREFIX . "_" . md5(BP);
+        self::$cacheKey = self::CACHE_KEY_PREFIX . "_" . md5(self::$_BP);
         self::registerScope(self::$_scope);
         self::loadCacheContent();
     }
@@ -64,7 +74,7 @@ class Varien_Autoload
     {
         $realPath = self::getFullPath($class);
         if ($realPath !== false) {
-            return include BP . DIRECTORY_SEPARATOR . $realPath;
+            return include self::$_BP . DIRECTORY_SEPARATOR . $realPath;
         }
         return false;
     }
@@ -107,7 +117,7 @@ class Varien_Autoload
      * @return string
      */
     static public function getCacheFilePath() {
-        return BP . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache'. DIRECTORY_SEPARATOR . 'classPathCache.php';
+        return self::$_BP . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache'. DIRECTORY_SEPARATOR . 'classPathCache.php';
     }
 
     /**
@@ -147,7 +157,7 @@ class Varien_Autoload
         if (!isset(self::$_cache[$className])) {
             self::$_cache[$className] = self::searchFullPath(self::getFileFromClassName($className));
             // removing the basepath
-            self::$_cache[$className] = str_replace(BP . DIRECTORY_SEPARATOR, '', self::$_cache[$className]);
+            self::$_cache[$className] = str_replace(self::$_BP . DIRECTORY_SEPARATOR, '', self::$_cache[$className]);
             self::$_numberOfFilesAddedToCache++;
         }
         return self::$_cache[$className];
