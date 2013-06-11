@@ -14,37 +14,29 @@ class Aoe_ClassPathCache_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return bool
      */
     public function clearClassPathCache() {
-        $result = false;
-        if (Varien_Autoload::isApcUsed()) {
-            if (php_sapi_name() == 'cli') {
-                // do frontend call
-                Mage::log('[ClassPathCache] Doing frontend call.');
-                $response = file_get_contents($this->getUrl());
-                if ($response != 'OK') {
-                    $result = false;
-                    Mage::log('[ClassPathCache] Frontend call failed. Response: ' . $response);
-                } else {
-                    $result = true;
-                    Mage::log('[ClassPathCache] Frontend call success');
-                }
-            } else {
-                // delete cache directly
-                $result = !apc_exists(Varien_Autoload::getCacheKey()) || apc_delete(Varien_Autoload::getCacheKey());
-                if ($result) {
-                    Mage::log('[ClassPathCache] Delete cache from apc.');
-                } else {
-                    Mage::log('[ClassPathCache] Deleting cache from apc FAILED.');
-                }
-            }
-        } else {
-            $result = unlink(Varien_Autoload::getCacheFilePath());
-            if ($result) {
-                Mage::log('[ClassPathCache] Delete cache from file system.');
-            } else {
-                Mage::log('[ClassPathCache] Deleting cache from file system FAILED.');
+        if (Varien_Autoload::isApcUsed() && php_sapi_name() == 'cli') {
+            // do frontend call
+            Mage::log('[ClassPathCache] Doing frontend call.');
+            $response = file_get_contents($this->getUrl());
+            if ($response != 'OK') {
+                Mage::log('[ClassPathCache] Frontend call failed. Response: ' . $response);
+                return FALSE;
             }
         }
-        return $result;
+        $this->revalidateCache();
+        return TRUE;
+    }
+
+    /**
+     * Revalidate all currently cached entries
+     */
+    public function revalidateCache()
+    {
+        $cache = Varien_Autoload::getCache();
+        Varien_Autoload::setCache(array());
+        foreach ($cache as $className => $path) {
+            Varien_Autoload::getFullPath($className);
+        }
     }
 
     /**
