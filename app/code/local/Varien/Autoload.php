@@ -14,7 +14,7 @@ class Varien_Autoload
     static protected $_cache = array();
     static protected $_numberOfFilesAddedToCache = 0;
 
-    static protected $useAPC = FALSE;
+    static public $useAPC = NULL;
     static protected $cacheKey = self::CACHE_KEY_PREFIX;
 
     /* Base Path */
@@ -34,10 +34,12 @@ class Varien_Autoload
                 self::$_BP = $bp;
             }
         }
-        
-        if (extension_loaded('apc')) {
-            self::$useAPC = TRUE;
+
+        // Allow APC to be disabled externally by explicitly setting Varien_Autoload::$useAPC = FALSE;
+        if (self::$useAPC === NULL) {
+            self::$useAPC = extension_loaded('apc') && ini_get('apc.enabled');
         }
+
         self::$cacheKey = self::CACHE_KEY_PREFIX . "_" . md5(self::$_BP);
         self::registerScope(self::$_scope);
         self::loadCacheContent();
@@ -218,7 +220,9 @@ class Varien_Autoload
     {
         if (self::$_numberOfFilesAddedToCache > 0) {
             if (self::isApcUsed()) {
-                apc_store(self::getCacheKey(), self::$_cache, 0);
+                if (PHP_SAPI != 'cli') {
+                    apc_store(self::getCacheKey(), self::$_cache, 0);
+                }
             } else {
                 $fileContent = serialize(self::$_cache);
                 $tmpFile = tempnam(sys_get_temp_dir(), 'aoe_classpathcache');
