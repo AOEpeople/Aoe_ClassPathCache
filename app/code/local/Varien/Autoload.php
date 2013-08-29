@@ -18,7 +18,7 @@ class Varien_Autoload
     static protected $cacheKey = self::CACHE_KEY_PREFIX;
 
     /* Base Path */
-    static protected $_BP = ''; 
+    static protected $_BP = '';
 
     /**
      * Class constructor
@@ -173,14 +173,7 @@ class Varien_Autoload
      */
     static public function searchFullPath($filename)
     {
-        $paths = explode(PATH_SEPARATOR, get_include_path());
-        foreach ($paths as $path) {
-            $fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-            if (file_exists($fullPath)) {
-                return $fullPath;
-            }
-        }
-        return false;
+        return stream_resolve_include_path($filename);
     }
 
     /**
