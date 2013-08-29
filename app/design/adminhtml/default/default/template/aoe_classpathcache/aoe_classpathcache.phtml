@@ -5,12 +5,10 @@ $_helper = $this->helper('aoe_classpathcache'); /* @var $_helper Aoe_ClassPathCa
 <table class="form-list">
     <tr>
         <td class="scope-label">
-            <button onclick="setLocation('<?php echo $_helper->getUrl() ?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Aoe_ClassPathCache') ?></span></span></span></button>
+            <button onclick="setLocation('<?php echo $_helper->getUrl() ?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('aoe_classpathcache')->__('Flush Aoe_ClassPathCache') ?></span></span></span></button>
         </td>
         <td class="scope-label">
-            <strong><?php echo Mage::helper('adminhtml')->__('Storage:') ?></strong>
-            <?php echo Varien_Autoload::isApcUsed() ? Mage::helper('adminhtml')->__('APC') : Mage::helper('adminhtml')->__('file') ?>,
-            <strong><?php echo Mage::helper('adminhtml')->__('Number of entries:') ?></strong>
+            <strong><?php echo Mage::helper('aoe_classpathcache')->__('Number of entries:') ?></strong>
             <?php echo count(Varien_Autoload::getCache()) ?>
         </td>
     </tr>

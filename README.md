@@ -2,6 +2,9 @@
 
 ## Change log
 
+* v0.3.0
+    * Rewrote module to use generated class page cache
+
 * v0.2.1
     * Adding button to cache management page to flush Aoe_ClassPathCache content
 

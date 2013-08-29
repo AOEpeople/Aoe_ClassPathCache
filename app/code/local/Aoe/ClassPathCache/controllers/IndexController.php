@@ -7,9 +7,8 @@
  */
 class Aoe_ClassPathCache_IndexController extends Mage_Core_Controller_Front_Action
 {
-
     /**
-     * Clear classpathcache
+     * Clear class path cache
      *
      * @return void
      */
@@ -25,5 +24,4 @@ class Aoe_ClassPathCache_IndexController extends Mage_Core_Controller_Front_Acti
             $this->getResponse()->setBody('WRONG KEY');
         }
     }
-
 }

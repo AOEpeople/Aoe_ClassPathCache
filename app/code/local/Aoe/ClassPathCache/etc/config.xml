@@ -1,41 +1,38 @@
 <?xml version="1.0"?>
 <config>
+    <modules>
+        <Aoe_ClassPathCache>
+            <version>0.3.0</version>
+        </Aoe_ClassPathCache>
+    </modules>
 
-	<modules>
-		<Aoe_ClassPathCache>
-			<version>0.2.1</version>
-		</Aoe_ClassPathCache>
-	</modules>
+    <global>
+        <helpers>
+            <aoe_classpathcache>
+                <class>Aoe_ClassPathCache_Helper</class>
+            </aoe_classpathcache>
+        </helpers>
+    </global>
 
-	<global>
-		<helpers>
-			<aoe_classpathcache>
-				<class>Aoe_ClassPathCache_Helper</class>
-			</aoe_classpathcache>
-		</helpers>
-	</global>
+    <frontend>
+        <routers>
+            <aoe_classpathcache>
+                <use>standard</use>
+                <args>
+                    <module>Aoe_ClassPathCache</module>
+                    <frontName>aoeclasspathcache</frontName>
+                </args>
+            </aoe_classpathcache>
+        </routers>
+    </frontend>
 
-	<frontend>
-		<routers>
-			<aoe_classpathcache>
-				<use>standard</use>
-				<args>
-					<module>Aoe_ClassPathCache</module>
-					<frontName>aoeclasspathcache</frontName>
-				</args>
-			</aoe_classpathcache>
-		</routers>
-	</frontend>
-
-	<adminhtml>
-		<layout>
-			<updates>
-				<aoe_classpathcache>
-					<file>aoe_classpathcache/aoe_classpathcache.xml</file>
-				</aoe_classpathcache>
-			</updates>
-		</layout>
-	</adminhtml>
-	
-	
+    <adminhtml>
+        <layout>
+            <updates>
+                <aoe_classpathcache>
+                    <file>aoe_classpathcache/aoe_classpathcache.xml</file>
+                </aoe_classpathcache>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>

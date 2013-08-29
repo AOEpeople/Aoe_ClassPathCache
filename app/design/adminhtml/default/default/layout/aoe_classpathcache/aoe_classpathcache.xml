@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
-
-	<adminhtml_cache_index>
-		<reference name="cache.additional">
-			<block type="core/template" name="aoe_classpathcache" template="aoe_classpathcache/aoe_classpathcache.phtml" after="-"></block>
-		</reference>
-	</adminhtml_cache_index>
-
+    <adminhtml_cache_index>
+        <reference name="cache.additional">
+            <block type="core/template" name="aoe_classpathcache" template="aoe_classpathcache/aoe_classpathcache.phtml"
+                   after="-"/>
+        </reference>
+    </adminhtml_cache_index>
 </layout>
