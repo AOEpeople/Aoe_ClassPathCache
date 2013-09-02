@@ -63,7 +63,7 @@ class Aoe_ClassPathCache_Helper_Data extends Mage_Core_Helper_Abstract {
         return Mage::getUrl('aoeclasspathcache/index/clear', array(
             'k' => base64_encode($k),
             'v' => base64_encode(Mage::helper('core')->encrypt($k)),
-            '_store' => 'default' // TODO: that's not nice
+//            '_store' => 'default' // TODO: that's not nice
         ));
     }
 
