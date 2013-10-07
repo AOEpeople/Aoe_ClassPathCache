@@ -245,6 +245,8 @@ class Varien_Autoload
                 if (file_put_contents($tmpFile, $fileContent)) {
                     if (rename($tmpFile, self::getCacheFilePath())) {
                         @chmod(self::getCacheFilePath(), 0664);
+                    } else {
+                        @unlink($tmpFile);
                     }
                 }
             }

@@ -2,6 +2,13 @@
 
 ## Change log
 
+* v0.2.2
+    * Revalidate cache rather than clearing cache to prevent stampeding.
+    * Check that APC is actually enabled.
+    * Do not store apc cache for cli mode.
+    * Make useAPC static property public to allow it to be explicitly enabled or disabled.
+    * Remove tmp files on failed rename.
+
 * v0.2.1
     * Adding button to cache management page to flush Aoe_ClassPathCache content
 
