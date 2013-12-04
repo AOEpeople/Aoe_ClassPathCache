@@ -182,9 +182,10 @@ class Varien_Autoload
      */
     static public function getFullPath($className) {
         if (!isset(self::$_cache[$className])) {
-            self::$_cache[$className] = self::searchFullPath(self::getFileFromClassName($className));
-            // removing the basepath
-            self::$_cache[$className] = str_replace(self::$_BP . DIRECTORY_SEPARATOR, '', self::$_cache[$className]);
+            $fullPath = self::searchFullPath(self::getFileFromClassName($className));
+            if ($fullPath) {
+                self::$_cache[$className] = str_replace(self::$_BP . DIRECTORY_SEPARATOR, '', $fullPath);
+            }
             self::$_numberOfFilesAddedToCache++;
         }
         return self::$_cache[$className];
@@ -202,7 +203,7 @@ class Varien_Autoload
         $paths = explode(PATH_SEPARATOR, get_include_path());
         foreach ($paths as $path) {
             $fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-            if (file_exists($fullPath)) {
+            if (@file_exists($fullPath)) {
                 return $fullPath;
             }
         }
