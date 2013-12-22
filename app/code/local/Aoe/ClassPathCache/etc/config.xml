@@ -37,5 +37,16 @@
         </layout>
     </adminhtml>
     
+    <admin>
+        <routers>
+            <adminhtmlcpc>
+                <use>admin</use>
+                <args>
+                    <module>Aoe_ClassPathCache_Adminhtml</module>
+                    <frontName>adminhtmlcpc</frontName>
+                </args>
+            </adminhtmlcpc>
+        </routers>
+    </admin>
     
 </config>
