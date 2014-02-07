@@ -40,7 +40,8 @@ class Varien_Autoload
         // Allow APC to be disabled externally by explicitly setting Varien_Autoload::$useAPC = FALSE;
         if (self::$useXCACHE === NULL) {
             self::$useXCACHE = extension_loaded('XCache') && ini_get('xcache.cacher');
-        } elseif (self::$useAPC === NULL) {
+        }
+        if (self::$useAPC === NULL && self::$useXCACHE == FALSE) {
             self::$useAPC = extension_loaded('apc') && ini_get('apc.enabled');
         }
 
