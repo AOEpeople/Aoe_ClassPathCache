@@ -193,7 +193,9 @@ class Varien_Autoload
         if (!isset(self::$_cache[$className])) {
             self::$_cache[$className] = self::searchFullPath(self::getFileFromClassName($className));
             // removing the basepath
-            self::$_cache[$className] = str_replace(self::$_BP . DIRECTORY_SEPARATOR, '', self::$_cache[$className]);
+            if (self::$_cache[$className] !== false) {
+                self::$_cache[$className] = str_replace(self::$_BP . DIRECTORY_SEPARATOR, '', self::$_cache[$className]);
+            }
             self::$_numberOfFilesAddedToCache++;
         }
         return self::$_cache[$className];
