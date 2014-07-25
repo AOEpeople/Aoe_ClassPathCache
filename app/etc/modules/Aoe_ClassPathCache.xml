@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<modules>
-		<Aoe_ClassPathCache>
-			<active>true</active>
-			<codePool>local</codePool>
-		</Aoe_ClassPathCache>
-	</modules>
+    <modules>
+        <Aoe_ClassPathCache>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Aoe_ClassPathCache>
+    </modules>
 </config>

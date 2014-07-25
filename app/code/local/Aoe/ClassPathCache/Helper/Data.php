@@ -72,5 +72,18 @@ class Aoe_ClassPathCache_Helper_Data extends Mage_Core_Helper_Abstract {
         ));
     }
 
+   /**
+     * return in the admin area the url for cleanup
+     * 
+     * @return string|boolean
+     */
+    public function getAdminUrl()
+    {
+        if(Mage::app()->getStore()->isAdmin())
+        {
+            return Mage::helper('adminhtml')->getUrl('adminhtmlcpc/index/clear');
+        }
+        return false;
+    }
 
 }
